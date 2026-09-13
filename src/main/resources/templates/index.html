@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>KGEC Campus Bus System</title>
+    <meta name="description" content="Campus bus transportation system for Kalyani Government Engineering College. View schedules, book tickets, and track routes."/>
+    <link rel="preconnect" href="https://fonts.googleapis.com"/>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+    <link rel="stylesheet" th:href="@{/css/style.css}"/>
+</head>
+<body>
+    <div th:replace="~{fragments/navbar :: navbar}"></div>
+
+    <main class="main-content">
+        <!-- Hero Section -->
+        <section class="hero" id="hero-section">
+            <div class="hero-bg"></div>
+            <div class="container hero-container">
+                <div class="hero-content">
+                    <span class="hero-badge">🎓 Kalyani Government Engineering College</span>
+                    <h1 class="hero-title">
+                        Campus Bus<br/>
+                        <span class="gradient-text">Transportation System</span>
+                    </h1>
+                    <p class="hero-subtitle">
+                        Safe, reliable, and affordable bus service connecting campus stops.
+                        View real-time schedules, track routes on an interactive map, and book
+                        your tickets — all in one place.
+                    </p>
+                    <div class="hero-actions">
+                        <a th:href="@{/schedule}" class="btn btn-primary" id="hero-schedule-btn">
+                            📅 View Schedule
+                        </a>
+                        <a th:href="@{/map}" class="btn btn-secondary" id="hero-map-btn">
+                            🗺️ Route Map
+                        </a>
+                    </div>
+                </div>
+                <div class="hero-visual">
+                    <div class="hero-card">
+                        <div class="hero-card-header">
+                            <span class="pulse-dot"></span>
+                            <span>Next Bus</span>
+                        </div>
+                        <div class="hero-card-body">
+                            <div class="hero-route">
+                                <div class="route-point">
+                                    <div class="route-dot start"></div>
+                                    <span>Kalyani Junction</span>
+                                </div>
+                                <div class="route-line"></div>
+                                <div class="route-point">
+                                    <div class="route-dot end"></div>
+                                    <span>ITI More</span>
+                                </div>
+                            </div>
+                            <div class="hero-card-info">
+                                <span class="info-tag">⏱ Every Hour</span>
+                                <span class="info-tag">💺 40 Seats</span>
+                                <span class="info-tag">₹ From ₹10</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Features Section -->
+        <section class="features" id="features-section">
+            <div class="container">
+                <h2 class="section-title">How It Works</h2>
+                <div class="features-grid">
+                    <div class="feature-card" id="feature-schedule">
+                        <div class="feature-icon">📅</div>
+                        <h3>Check Schedule</h3>
+                        <p>Hourly buses from 8 AM to 7 PM connecting 6 stops across campus and Kalyani township.</p>
+                    </div>
+                    <div class="feature-card" id="feature-map">
+                        <div class="feature-icon">🗺️</div>
+                        <h3>View Route Map</h3>
+                        <p>Interactive map showing all bus stops with precise locations and the complete route path.</p>
+                    </div>
+                    <div class="feature-card" id="feature-book">
+                        <div class="feature-icon">🎫</div>
+                        <h3>Book Tickets</h3>
+                        <p>Register, pick your schedule, choose your stops, and book instantly. Fares start at just ₹10.</p>
+                    </div>
+                    <div class="feature-card" id="feature-manage">
+                        <div class="feature-icon">📋</div>
+                        <h3>Manage Bookings</h3>
+                        <p>View all your booked tickets, check status, and cancel with a single click if plans change.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Stops Section -->
+        <section class="stops-section" id="stops-section">
+            <div class="container">
+                <h2 class="section-title">Our Stops</h2>
+                <div class="stops-timeline">
+                    <div class="timeline-stop">
+                        <div class="timeline-marker">1</div>
+                        <div class="timeline-content">
+                            <h4>Kalyani Junction</h4>
+                            <p>Main railway station hub</p>
+                        </div>
+                    </div>
+                    <div class="timeline-stop">
+                        <div class="timeline-marker">2</div>
+                        <div class="timeline-content">
+                            <h4>Kalyani Ghoshpara</h4>
+                            <p>Residential area</p>
+                        </div>
+                    </div>
+                    <div class="timeline-stop">
+                        <div class="timeline-marker">3</div>
+                        <div class="timeline-content">
+                            <h4>Academic Building</h4>
+                            <p>Main college campus</p>
+                        </div>
+                    </div>
+                    <div class="timeline-stop">
+                        <div class="timeline-marker">4</div>
+                        <div class="timeline-content">
+                            <h4>MSB / SNB</h4>
+                            <p>Student hostels</p>
+                        </div>
+                    </div>
+                    <div class="timeline-stop">
+                        <div class="timeline-marker">5</div>
+                        <div class="timeline-content">
+                            <h4>Kathaltala</h4>
+                            <p>Local marketplace</p>
+                        </div>
+                    </div>
+                    <div class="timeline-stop">
+                        <div class="timeline-marker">6</div>
+                        <div class="timeline-content">
+                            <h4>ITI More</h4>
+                            <p>ITI intersection</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA Section -->
+        <section class="cta-section" id="cta-section">
+            <div class="container">
+                <div class="cta-card">
+                    <h2>Ready to Ride?</h2>
+                    <p>Create a free account and start booking your campus bus tickets today.</p>
+                    <div class="cta-actions">
+                        <a sec:authorize="!isAuthenticated()" th:href="@{/register}" class="btn btn-primary" id="cta-register-btn">
+                            Create Account
+                        </a>
+                        <a sec:authorize="isAuthenticated()" th:href="@{/booking}" class="btn btn-primary" id="cta-book-btn">
+                            Book Now
+                        </a>
+                        <a th:href="@{/terms}" class="btn btn-ghost" id="cta-terms-btn">
+                            Terms &amp; Conditions
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-section">
+                    <h3>🚌 KGEC Campus Bus</h3>
+                    <p>Kalyani Government Engineering College<br/>Kalyani, Nadia, West Bengal — 741235</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a th:href="@{/schedule}">Schedule</a></li>
+                        <li><a th:href="@{/map}">Route Map</a></li>
+                        <li><a th:href="@{/booking}">Book Ticket</a></li>
+                        <li><a th:href="@{/terms}">Terms &amp; Conditions</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Contact</h3>
+                    <p>📧 transport@kgec.edu.in<br/>📞 +91-33-2582-1354</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 KGEC Campus Bus System. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

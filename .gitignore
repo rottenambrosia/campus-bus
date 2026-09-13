@@ -1,0 +1,29 @@
+# Gradle
+.gradle/
+build/
+
+# Java
+*.class
+*.jar
+*.war
+*.ear
+hs_err_pid*
+
+# IDEs
+.idea/
+*.iml
+.vscode/
+
+# Local environment and runtime files
+.env
+.env.*
+!.env.example
+*.log
+*.h2.db
+*.mv.db
+*.trace.db
+
+# Operating system files
+.DS_Store
+Thumbs.db
+desktop.ini

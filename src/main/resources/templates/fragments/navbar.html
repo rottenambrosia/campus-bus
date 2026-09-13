@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<body>
+<nav th:fragment="navbar" class="navbar" id="main-navbar">
+    <div class="container nav-container">
+        <a th:href="@{/}" class="nav-brand">
+            <span class="nav-logo">🚌</span>
+            <span class="nav-title">KGEC Campus Bus</span>
+        </a>
+
+        <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation">
+            <span></span><span></span><span></span>
+        </button>
+
+        <div class="nav-links" id="nav-links">
+            <a th:href="@{/}" class="nav-link">Home</a>
+            <a th:href="@{/schedule}" class="nav-link">Schedule</a>
+            <a th:href="@{/map}" class="nav-link">Map</a>
+
+            <div sec:authorize="isAuthenticated()" class="nav-auth-group">
+                <a th:href="@{/booking}" class="nav-link">Book Ticket</a>
+                <a th:href="@{/my-tickets}" class="nav-link">My Tickets</a>
+                <form th:action="@{/logout}" method="post" class="nav-logout-form">
+                    <button type="submit" class="nav-link nav-btn-logout">
+                        Logout (<span sec:authentication="name">User</span>)
+                    </button>
+                </form>
+            </div>
+
+            <div sec:authorize="!isAuthenticated()" class="nav-auth-group">
+                <a th:href="@{/login}" class="nav-link btn-nav">Login</a>
+                <a th:href="@{/register}" class="nav-link btn-nav btn-nav-primary">Register</a>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<script>
+    // Mobile nav toggle
+    document.addEventListener('DOMContentLoaded', function() {
+        const toggle = document.getElementById('nav-toggle');
+        const links = document.getElementById('nav-links');
+        if (toggle && links) {
+            toggle.addEventListener('click', function() {
+                links.classList.toggle('active');
+                toggle.classList.toggle('active');
+            });
+        }
+    });
+</script>
+</body>
+</html>

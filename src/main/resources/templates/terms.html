@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Terms &amp; Conditions — KGEC Campus Bus</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com"/>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+    <link rel="stylesheet" th:href="@{/css/style.css}"/>
+</head>
+<body>
+    <div th:replace="~{fragments/navbar :: navbar}"></div>
+
+    <main class="main-content">
+        <div class="container page-container">
+            <div class="page-header">
+                <h1>📜 Terms &amp; Conditions</h1>
+                <p class="page-subtitle">Please read these terms carefully before using the campus bus service</p>
+            </div>
+
+            <div class="card terms-card" id="terms-card">
+                <div class="terms-content">
+
+                    <section class="terms-section">
+                        <h2>1. General Terms</h2>
+                        <p>These Terms and Conditions govern your use of the KGEC Campus Bus System ("the Service")
+                           operated by Kalyani Government Engineering College, Kalyani, Nadia, West Bengal — 741235.</p>
+                        <p>By using this Service, you agree to be bound by these terms. If you do not agree,
+                           please do not use the Service.</p>
+                    </section>
+
+                    <section class="terms-section">
+                        <h2>2. Eligibility</h2>
+                        <ul>
+                            <li>The campus bus service is available to all registered students, faculty, and staff of KGEC.</li>
+                            <li>Users must register with a valid college email or personal email to book tickets.</li>
+                            <li>Users must carry a valid college ID card while travelling.</li>
+                        </ul>
+                    </section>
+
+                    <section class="terms-section">
+                        <h2>3. Ticket Booking &amp; Fares</h2>
+                        <ul>
+                            <li>Tickets can be booked online through this platform.</li>
+                            <li>Fares are calculated at ₹5 per stop with a minimum fare of ₹10.</li>
+                            <li>Tickets are non-transferable and valid only for the selected schedule.</li>
+                            <li>A valid ticket must be presented upon request by the bus conductor.</li>
+                        </ul>
+                    </section>
+
+                    <section class="terms-section">
+                        <h2>4. Cancellation Policy</h2>
+                        <ul>
+                            <li>Tickets may be cancelled before the scheduled departure time.</li>
+                            <li>Cancellation is free of charge (no cancellation fee).</li>
+                            <li>Refunds for cancelled tickets will be processed in the form of credit (simulated).</li>
+                            <li>No-show passengers will not be eligible for refund.</li>
+                        </ul>
+                    </section>
+
+                    <section class="terms-section">
+                        <h2>5. Bus Schedule &amp; Routes</h2>
+                        <ul>
+                            <li>Buses operate from 8:00 AM to 7:00 PM with hourly departures.</li>
+                            <li>The route covers: Kalyani Junction → Kalyani Ghoshpara → Academic Building → MSB/SNB → Kathaltala → ITI More (and reverse).</li>
+                            <li>Schedules are subject to change during examinations, holidays, or adverse weather.</li>
+                            <li>The administration reserves the right to modify routes and timings without prior notice.</li>
+                        </ul>
+                    </section>
+
+                    <section class="terms-section">
+                        <h2>6. Passenger Conduct</h2>
+                        <ul>
+                            <li>Passengers must board and alight only at designated stops.</li>
+                            <li>Smoking, consumption of alcohol, and use of prohibited substances is strictly forbidden on the bus.</li>
+                            <li>Passengers must not damage bus property. Any damage will be charged to the responsible individual.</li>
+                            <li>Loud music, disruptive behavior, and harassment of fellow passengers will not be tolerated.</li>
+                            <li>The bus administration reserves the right to refuse service to any passenger violating these rules.</li>
+                        </ul>
+                    </section>
+
+                    <section class="terms-section">
+                        <h2>7. Liability</h2>
+                        <ul>
+                            <li>The college is not responsible for loss or damage of personal belongings during travel.</li>
+                            <li>The college shall not be held liable for delays caused by traffic, weather, or mechanical breakdowns.</li>
+                            <li>Passengers travel at their own risk.</li>
+                        </ul>
+                    </section>
+
+                    <section class="terms-section">
+                        <h2>8. Privacy &amp; Data</h2>
+                        <ul>
+                            <li>Your registration data is used solely for providing the bus booking service.</li>
+                            <li>Passwords are encrypted and stored securely.</li>
+                            <li>We do not share your personal data with third parties.</li>
+                            <li>You may request deletion of your account by contacting the transport office.</li>
+                        </ul>
+                    </section>
+
+                    <section class="terms-section">
+                        <h2>9. Amendments</h2>
+                        <p>KGEC reserves the right to amend these Terms and Conditions at any time.
+                           Changes will be effective upon posting on this platform. Continued use of
+                           the Service constitutes acceptance of the modified terms.</p>
+                    </section>
+
+                    <section class="terms-section">
+                        <h2>10. Contact</h2>
+                        <p>For queries, complaints, or suggestions regarding the campus bus service:</p>
+                        <ul>
+                            <li>Email: transport@kgec.edu.in</li>
+                            <li>Phone: +91-33-2582-1354</li>
+                            <li>Visit: Transport Office, KGEC Campus</li>
+                        </ul>
+                    </section>
+
+                    <div class="terms-footer">
+                        <p><em>Last updated: September 2026</em></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-bottom">
+                <p>&copy; 2026 KGEC Campus Bus System. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
