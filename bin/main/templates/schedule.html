@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Bus Schedule — KGEC Campus Bus</title>
+    <meta name="description" content="View complete bus schedule for KGEC campus bus service. Hourly departures from 8 AM to 7 PM."/>
+    <link rel="preconnect" href="https://fonts.googleapis.com"/>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+    <link rel="stylesheet" th:href="@{/css/style.css}"/>
+</head>
+<body>
+    <div th:replace="~{fragments/navbar :: navbar}"></div>
+
+    <main class="main-content">
+        <div class="container page-container">
+            <div class="page-header">
+                <h1>📅 Bus Schedule</h1>
+                <p class="page-subtitle">Hourly service from 8:00 AM to 7:00 PM — 6 stops, 2 directions</p>
+            </div>
+
+            <!-- Route Stops Overview -->
+            <div class="card" id="stops-overview-card">
+                <h2 class="card-title">Route Stops</h2>
+                <div class="stops-row">
+                    <div th:each="stop, iter : ${stops}" class="stop-chip">
+                        <span class="stop-number" th:text="${iter.index + 1}">1</span>
+                        <span th:text="${stop.name}">Stop Name</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- UP Direction Schedule -->
+            <div class="card" id="up-schedule-card">
+                <h2 class="card-title">
+                    <span class="direction-badge up">▲ UP</span>
+                    Kalyani Junction → ITI More
+                </h2>
+                <div class="table-wrapper">
+                    <table class="schedule-table" id="up-schedule-table">
+                        <thead>
+                            <tr>
+                                <th>Bus No.</th>
+                                <th>Departure</th>
+                                <th>Direction</th>
+                                <th>Capacity</th>
+                                <th>Available</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr th:each="s : ${upSchedules}">
+                                <td>
+                                    <span class="bus-badge" th:text="${s.busNumber}">KGEC-001</span>
+                                </td>
+                                <td class="time-cell" th:text="${s.departureTime}">08:00</td>
+                                <td><span class="direction-badge up">▲ UP</span></td>
+                                <td th:text="${s.capacity}">40</td>
+                                <td>
+                                    <span class="seats-badge"
+                                          th:classappend="${s.availableSeats <= 5 ? ' low' : ''}"
+                                          th:text="${s.availableSeats}">40</span>
+                                </td>
+                                <td>
+                                    <span th:if="${s.hasAvailableSeats()}" class="status-badge available">Available</span>
+                                    <span th:unless="${s.hasAvailableSeats()}" class="status-badge full">Full</span>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- DOWN Direction Schedule -->
+            <div class="card" id="down-schedule-card">
+                <h2 class="card-title">
+                    <span class="direction-badge down">▼ DOWN</span>
+                    ITI More → Kalyani Junction
+                </h2>
+                <div class="table-wrapper">
+                    <table class="schedule-table" id="down-schedule-table">
+                        <thead>
+                            <tr>
+                                <th>Bus No.</th>
+                                <th>Departure</th>
+                                <th>Direction</th>
+                                <th>Capacity</th>
+                                <th>Available</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr th:each="s : ${downSchedules}">
+                                <td>
+                                    <span class="bus-badge" th:text="${s.busNumber}">KGEC-013</span>
+                                </td>
+                                <td class="time-cell" th:text="${s.departureTime}">08:00</td>
+                                <td><span class="direction-badge down">▼ DOWN</span></td>
+                                <td th:text="${s.capacity}">40</td>
+                                <td>
+                                    <span class="seats-badge"
+                                          th:classappend="${s.availableSeats <= 5 ? ' low' : ''}"
+                                          th:text="${s.availableSeats}">40</span>
+                                </td>
+                                <td>
+                                    <span th:if="${s.hasAvailableSeats()}" class="status-badge available">Available</span>
+                                    <span th:unless="${s.hasAvailableSeats()}" class="status-badge full">Full</span>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Book CTA -->
+            <div class="schedule-cta" id="schedule-cta">
+                <p>Found your bus?</p>
+                <a th:href="@{/booking}" class="btn btn-primary" id="schedule-book-btn">🎫 Book a Ticket</a>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-bottom">
+                <p>&copy; 2026 KGEC Campus Bus System. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

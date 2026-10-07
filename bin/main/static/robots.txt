@@ -1,0 +1,12 @@
+# KGEC Campus Bus System — robots.txt
+User-agent: *
+Allow: /
+Allow: /schedule
+Allow: /map
+Allow: /terms
+
+Disallow: /booking
+Disallow: /my-tickets
+Disallow: /h2-console
+
+Sitemap: http://localhost:8080/sitemap.xml

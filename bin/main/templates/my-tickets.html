@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>My Tickets — KGEC Campus Bus</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com"/>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+    <link rel="stylesheet" th:href="@{/css/style.css}"/>
+</head>
+<body>
+    <div th:replace="~{fragments/navbar :: navbar}"></div>
+
+    <main class="main-content">
+        <div class="container page-container">
+            <div class="page-header">
+                <h1>📋 My Tickets</h1>
+                <p class="page-subtitle">View and manage your booked tickets</p>
+            </div>
+
+            <!-- Flash Messages -->
+            <div th:if="${successMsg}" class="alert alert-success" id="tickets-success">
+                <span th:text="${successMsg}">Success</span>
+            </div>
+            <div th:if="${errorMsg}" class="alert alert-error" id="tickets-error">
+                <span th:text="${errorMsg}">Error</span>
+            </div>
+
+            <!-- No Tickets -->
+            <div th:if="${#lists.isEmpty(tickets)}" class="card empty-state" id="no-tickets-card">
+                <div class="empty-icon">🎫</div>
+                <h2>No Tickets Yet</h2>
+                <p>You haven't booked any tickets. Start by booking one!</p>
+                <a th:href="@{/booking}" class="btn btn-primary">Book a Ticket</a>
+            </div>
+
+            <!-- Ticket Cards -->
+            <div th:unless="${#lists.isEmpty(tickets)}" class="tickets-grid">
+                <div th:each="ticket : ${tickets}" class="ticket-card" th:classappend="${ticket.status.name() == 'CANCELLED' ? ' cancelled' : ''}">
+                    <div class="ticket-header">
+                        <span class="ticket-id" th:text="'#' + ${ticket.id}">
+                            #1
+                        </span>
+                        <span class="ticket-status"
+                              th:classappend="${ticket.status.name() == 'BOOKED' ? ' booked' : ' cancelled'}"
+                              th:text="${ticket.status}">
+                            BOOKED
+                        </span>
+                    </div>
+                    <div class="ticket-body">
+                        <div class="ticket-route">
+                            <div class="ticket-stop">
+                                <span class="stop-label">From</span>
+                                <strong th:text="${ticket.boardingStop.name}">Stop A</strong>
+                            </div>
+                            <div class="ticket-arrow">→</div>
+                            <div class="ticket-stop">
+                                <span class="stop-label">To</span>
+                                <strong th:text="${ticket.destinationStop.name}">Stop B</strong>
+                            </div>
+                        </div>
+                        <div class="ticket-details">
+                            <div class="ticket-detail">
+                                <span class="detail-label">Bus</span>
+                                <span th:text="${ticket.schedule.busNumber}">KGEC-001</span>
+                            </div>
+                            <div class="ticket-detail">
+                                <span class="detail-label">Departure</span>
+                                <span th:text="${ticket.schedule.departureTime}">08:00</span>
+                            </div>
+                            <div class="ticket-detail">
+                                <span class="detail-label">Fare</span>
+                                <span th:text="'₹' + ${#numbers.formatDecimal(ticket.fare, 1, 0)}">₹10</span>
+                            </div>
+                            <div class="ticket-detail">
+                                <span class="detail-label">Booked</span>
+                                <span th:text="${#temporals.format(ticket.bookingTime, 'dd MMM, hh:mm a')}">01 Jan, 10:00 AM</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="ticket-actions" th:if="${ticket.status.name() == 'BOOKED'}">
+                        <form th:action="@{/cancel-ticket/{id}(id=${ticket.id})}" method="post">
+                            <button type="submit" class="btn btn-danger btn-sm"
+                                    onclick="return confirm('Are you sure you want to cancel this ticket?')">
+                                ✕ Cancel Ticket
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-bottom">
+                <p>&copy; 2026 KGEC Campus Bus System. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

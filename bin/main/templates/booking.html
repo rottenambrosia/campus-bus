@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Book Ticket — KGEC Campus Bus</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com"/>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+    <link rel="stylesheet" th:href="@{/css/style.css}"/>
+</head>
+<body>
+    <div th:replace="~{fragments/navbar :: navbar}"></div>
+
+    <main class="main-content">
+        <div class="container page-container">
+            <div class="page-header">
+                <h1>🎫 Book a Ticket</h1>
+                <p class="page-subtitle">Select your bus, boarding stop, and destination</p>
+            </div>
+
+            <!-- Flash Messages -->
+            <div th:if="${errorMsg}" class="alert alert-error" id="booking-error">
+                <span th:text="${errorMsg}">Error</span>
+            </div>
+            <div th:if="${successMsg}" class="alert alert-success" id="booking-success">
+                <span th:text="${successMsg}">Success</span>
+            </div>
+
+            <div class="booking-layout">
+                <!-- Booking Form -->
+                <div class="card" id="booking-form-card">
+                    <h2 class="card-title">Booking Form</h2>
+                    <form th:action="@{/booking}" method="post" class="booking-form" id="booking-form">
+                        <div class="form-group">
+                            <label for="scheduleId">Select Bus</label>
+                            <select id="scheduleId" name="scheduleId" required>
+                                <option value="">— Choose a bus —</option>
+                                <optgroup label="▲ UP: Kalyani Junction → ITI More">
+                                    <th:block th:each="s : ${schedules}">
+                                        <option th:if="${s.route.direction.name() == 'UP'}"
+                                                th:value="${s.id}"
+                                                th:text="${s.busNumber + ' — ' + s.departureTime + ' (' + s.availableSeats + ' seats)'}"
+                                                th:disabled="${!s.hasAvailableSeats()}">
+                                        </option>
+                                    </th:block>
+                                </optgroup>
+                                <optgroup label="▼ DOWN: ITI More → Kalyani Junction">
+                                    <th:block th:each="s : ${schedules}">
+                                        <option th:if="${s.route.direction.name() == 'DOWN'}"
+                                                th:value="${s.id}"
+                                                th:text="${s.busNumber + ' — ' + s.departureTime + ' (' + s.availableSeats + ' seats)'}"
+                                                th:disabled="${!s.hasAvailableSeats()}">
+                                        </option>
+                                    </th:block>
+                                </optgroup>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="boardingStopId">Boarding Stop</label>
+                            <select id="boardingStopId" name="boardingStopId" required>
+                                <option value="">— Select boarding stop —</option>
+                                <option th:each="stop : ${stops}"
+                                        th:value="${stop.id}"
+                                        th:text="${stop.name}"
+                                        th:data-order="${stop.sequenceOrder}">
+                                </option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="destinationStopId">Destination Stop</label>
+                            <select id="destinationStopId" name="destinationStopId" required>
+                                <option value="">— Select destination stop —</option>
+                                <option th:each="stop : ${stops}"
+                                        th:value="${stop.id}"
+                                        th:text="${stop.name}"
+                                        th:data-order="${stop.sequenceOrder}">
+                                </option>
+                            </select>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary btn-full" id="booking-submit-btn">
+                            🎫 Confirm Booking
+                        </button>
+                    </form>
+                </div>
+
+                <!-- Fare Info -->
+                <div class="card" id="fare-info-card">
+                    <h2 class="card-title">💰 Fare Information</h2>
+                    <div class="fare-display" id="fare-display">
+                        <div class="fare-summary">
+                            <div class="fare-route">
+                                <span id="fare-from">—</span>
+                                <span class="fare-arrow">→</span>
+                                <span id="fare-to">—</span>
+                            </div>
+                            <div class="fare-stops" id="fare-stops">Select stops to see fare</div>
+                            <div class="fare-amount" id="fare-amount">₹ —</div>
+                        </div>
+                    </div>
+                    <div class="fare-rules">
+                        <h3>Fare Rules</h3>
+                        <ul>
+                            <li>Base rate: ₹5 per stop</li>
+                            <li>Minimum fare: ₹10</li>
+                            <li>Maximum: 5 stops = ₹25</li>
+                            <li>Tickets are non-transferable</li>
+                            <li>Free cancellation before departure</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-bottom">
+                <p>&copy; 2026 KGEC Campus Bus System. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script th:src="@{/js/booking.js}"></script>
+</body>
+</html>

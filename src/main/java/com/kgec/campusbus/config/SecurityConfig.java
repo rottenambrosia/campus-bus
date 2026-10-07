@@ -33,6 +33,7 @@ public class SecurityConfig {
                     "/robots.txt", "/favicon.ico",
                     "/h2-console/**"
                 ).permitAll()
+                .requestMatchers("/admin/**").hasRole("ADMIN")
                 .anyRequest().authenticated()
             )
             .formLogin(form -> form
